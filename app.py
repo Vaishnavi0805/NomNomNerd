@@ -49,10 +49,26 @@ st.set_page_config(layout="wide", page_title="Recipe Magic", page_icon="🪄")
 # Hero section
 with st.container():
     st.markdown(f"<h1 style='font-family: {fontFamily}; color: {primaryColor}'>NomNomNerd ༼ つ ◕_◕ ༽つ🍰🍔🍕</h1>", unsafe_allow_html=True)
-    st.markdown(
-    f"<div style='display: flex; justify-content: center;'><img src='bg.png' width='800' style='border-radius: 10px;'></div>",
-    unsafe_allow_html=True
-)
+    # st.image('bg.png', width=800, output_format='auto')
+    # st.image('bg.png', width=800, output_format='auto')
+    col1, col2, col3,col4,col5 = st.columns([1,1,6,1,1])
+
+    with col1:
+        st.write("")
+    with col2:
+        st.write("")
+    with col3:
+        st.image("bg.png")
+
+    with col4:
+        st.write("")
+
+    with col5:
+        st.write("")
+#     st.markdown(
+#     f"<div style='display: flex; justify-content: center;'><img src='bg.png' width='800' style='border-radius: 10px;'></div>",
+#     unsafe_allow_html=True
+# )
 
 
 # Image upload and serving size section
