@@ -9,6 +9,7 @@ import json
 os.environ['GOOGLE_API_KEY'] = st.secrets['GOOGLE_API_KEY']
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
 
+
 # Load the Gemini model
 vision_model = genai.GenerativeModel('gemini-pro-vision')
 
@@ -48,7 +49,11 @@ st.set_page_config(layout="wide", page_title="Recipe Magic", page_icon="🪄")
 # Hero section
 with st.container():
     st.markdown(f"<h1 style='font-family: {fontFamily}; color: {primaryColor}'>NomNomNerd ༼ つ ◕_◕ ༽つ🍰🍔🍕</h1>", unsafe_allow_html=True)
-    st.image("https://freedesignfile.com/upload/2017/05/Delicious-sushi-on-a-black-background-Stock-Photo-06.jpg", width=800)
+    st.markdown(
+    f"<div style='display: flex; justify-content: center;'><img src='bg.png' width='800' style='border-radius: 10px;'></div>",
+    unsafe_allow_html=True
+)
+
 
 # Image upload and serving size section
 with st.container():
