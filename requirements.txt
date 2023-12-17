@@ -1,0 +1,3 @@
+google-generativeai>=0.3.0
+qdrant_client
+google-ai-generativelanguage==0.4.0
