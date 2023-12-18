@@ -65,10 +65,6 @@ with st.container():
 
     with col5:
         st.write("")
-#     st.markdown(
-#     f"<div style='display: flex; justify-content: center;'><img src='bg.png' width='800' style='border-radius: 10px;'></div>",
-#     unsafe_allow_html=True
-# )
 
 
 # Image upload and serving size section
@@ -93,11 +89,9 @@ with st.container():
             recipe_data = None
             while not isinstance(recipe_data, dict):
                 recipe_data_str = generate_recipe_data(image, serving_size)
-                print(recipe_data)
                 recipe_data_str = recipe_data_str.replace("```", "\"\"\"")
                 recipe_data_str = recipe_data_str.strip()
                 recipe_data = ast.literal_eval(recipe_data_str)
-                print(recipe_data)
 
             # Display recipe data
             with st.container():
