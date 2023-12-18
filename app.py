@@ -34,9 +34,9 @@ def generate_recipe_data(image, serving_size):
             'nutritional value and ingredients': {'ing1':['Quantity:','protein:', 'carbs:','fats:','calories:']',
                                                    'ing2':['Quantity:','protein:', 'carbs:','fats:,calories:']',
                                                    'ing3':['Quantity:','protein:', 'carbs:','fats:,calories:']},
-            'Recipe steps':[Step 1: 'step',
-                            Step 2: 'step',
-                            Step n: 'step']
+            'Recipe steps':['Step 1: step',
+                            'Step 2: step',
+                            'Step n: step']
         } Very important: Make sure that your response starts from { and end with a }""", image], generation_config=generation_config)
     response.resolve()
     op1 = response.text
