@@ -90,14 +90,14 @@ with st.container():
         # Recipe generation button
         button_html = f"<button style='background-color: {accentColor}; color: white; font-family: {fontFamily}'>Get Cooking!</button>"
         if st.markdown(button_html, unsafe_allow_html=True):
-
             recipe_data = None
             while not isinstance(recipe_data, dict):
                 recipe_data_str = generate_recipe_data(image, serving_size)
+                print(recipe_data)
                 recipe_data_str = recipe_data_str.replace("```", "\"\"\"")
                 recipe_data_str = recipe_data_str.strip()
                 recipe_data = ast.literal_eval(recipe_data_str)
-            print(recipe_data)
+                print(recipe_data)
 
             # Display recipe data
             with st.container():
