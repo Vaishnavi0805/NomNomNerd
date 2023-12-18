@@ -97,6 +97,7 @@ with st.container():
                 recipe_data_str = recipe_data_str.replace("```", "\"\"\"")
                 recipe_data_str = recipe_data_str.strip()
                 recipe_data = ast.literal_eval(recipe_data_str)
+            print(recipe_data)
 
             # Display recipe data
             with st.container():
