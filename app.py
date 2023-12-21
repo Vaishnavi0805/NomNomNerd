@@ -180,4 +180,6 @@ with st.container():
                         )
                         tru.get_leaderboard(app_ids=[tru_app.app_id])
                         tru.run_dashboard()
+                        print("*****************************************************")
+                        print(Tru.dashboard_urls)
 
