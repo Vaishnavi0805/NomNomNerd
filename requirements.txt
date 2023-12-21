@@ -6,3 +6,4 @@ llama-index
 ipython
 streamlit-aggrid==0.3.4.post3
 SQLAlchemy==2.0.23
+alembic>= 1.11.2
