@@ -1,7 +1,7 @@
 google-generativeai>=0.3.0
 qdrant_client
 google-ai-generativelanguage==0.4.0
-trulens-eval== 0.19.2
+trulens-eval== 0.19.1
 llama-index
 ipython
 streamlit-aggrid==0.3.4.post3
