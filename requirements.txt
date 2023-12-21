@@ -2,3 +2,4 @@ google-generativeai>=0.3.0
 qdrant_client
 google-ai-generativelanguage==0.4.0
 trulens-eval== 0.19.2
+llama-index
