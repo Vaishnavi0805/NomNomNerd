@@ -6,6 +6,7 @@ import os
 import json
 from trulens_eval import Tru
 tru = Tru()
+tru.reset_database()
 from trulens_eval.tru_custom_app import instrument
 
 # Set Google API key
@@ -179,3 +180,4 @@ with st.container():
                         )
                         tru.get_leaderboard(app_ids=[tru_app.app_id])
                         tru.run_dashboard()
+
