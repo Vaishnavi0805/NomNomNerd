@@ -6,13 +6,12 @@ import os
 import json
 from trulens_eval import Tru
 tru = Tru()
-tru.reset_database()
 from trulens_eval.tru_custom_app import instrument
+from st_aggrid import AgGrid
 
 # Set Google API key
 os.environ['GOOGLE_API_KEY'] = st.secrets['GOOGLE_API_KEY']
 genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
-
 
 
 # Load the Gemini model
@@ -44,11 +43,10 @@ class App:
             Note:If any food item is not present in the image return a message saying 'The uploaded image may not contain recognizable food. Please upload an image of food. ' string""" % (serving_size), image], generation_config=generation_config)
         response.resolve()
         op1 = response.text
-        print (op1)
         return op1
 nomnomapp=App()
 from trulens_eval import TruCustomApp
-tru_app = TruCustomApp(nomnomapp, app_id = 'nomapp',initial_app_loader=App)
+tru_app = TruCustomApp(nomnomapp, app_id = 'nomapp')
 
 # Streamlit app
 st.set_page_config(layout="wide", page_title="Recipe Magic", page_icon="🪄")
@@ -58,21 +56,17 @@ with st.container():
     st.markdown(f"<h1 style='font-family: {fontFamily}; color: {primaryColor}'>NomNomNerd ༼ つ ◕_◕ ༽つ🍰🍔🍕</h1>", unsafe_allow_html=True)
     # st.image('bg.png', width=800, output_format='auto')
     # st.image('bg.png', width=800, output_format='auto')
-    col1, col2, col3,col4,col5 = st.columns([1,1,6,1,1])
-
+    col1, col2, col3,col4,col5 = st.columns([1,1,4,2,1])
     with col1:
         pass
     with col2:
         pass
     with col3:
-        st.image("bg.png")
-
+        st.image("bg.png",width=800,output_format='auto')
     with col4:
         pass
-
     with col5:
         pass
-
 
 # Image upload and serving size section
 with st.container():
@@ -88,10 +82,51 @@ with st.container():
     if uploaded_image is not None:
         # Display uploaded image
         image = Image.open(uploaded_image)
-        st.image(image, caption="Uploaded Image", width=400)
+        col1, col2, col3,col4,col5 = st.columns([1,3.5,4,3,1])
+
+        with col1:
+            pass
+        with col2:
+            pass
+        with col3:
+            st.image(image, caption="Uploaded Image", width=400)
+        with col4:
+            pass
+
+        with col5:
+            pass
 
         # Recipe generation button
-        button_html = f"<button style='background-color: {accentColor}; color: white; font-family: {fontFamily}'>Get Cooking!</button>"
+
+        
+        # Recipe generation button
+        # Recipe generation button
+        col1, col2, col3,col4,col5 = st.columns([1,1,1,5,5])
+        
+       
+        with col1:
+            pass
+        with col2:
+            darker_primary_color = "#E39B92"  # Adjust the color code to a slightly darker shade
+            left_margin = "55px"  # Adjust the left margin as needed
+
+            button_html = f"""
+                <button class="button-34" style='background: {darker_primary_color}; border-radius: 999px; box-shadow: {darker_primary_color} 0 10px 20px -10px;
+                    box-sizing: border-box; color: #FFFFFF; cursor: pointer; font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",
+                    NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",
+                    Roboto,"Helvetica Neue","Noto Sans",sans-serif; font-size: 16px; font-weight: 700; line-height: 24px; opacity: 1;
+                    outline: 0 solid transparent; padding: 8px 18px; user-select: none; -webkit-user-select: none; touch-action: manipulation;
+                    width: fit-content; word-break: break-word; border: 0; margin-left: {left_margin};'>
+                    Get Cooking!
+                </button>
+            """
+        with col3:
+            pass
+        with col4:
+            pass
+        with col5:
+            pass
+
         if st.markdown(button_html, unsafe_allow_html=True):
             recipe_data = None
             while not isinstance(recipe_data, dict):
@@ -113,13 +148,29 @@ with st.container():
 
                     # Display recipe name with formatting
                     st.markdown(f"<h2 style='font-family: {fontFamily}; color: {primaryColor}'> {recipe_data['name'][0]}</h2>", unsafe_allow_html=True)
-                
-                    # Initialize feedback variable
                     human_feedback = None
 
-                    # Define Streamlit buttons
-                    thumbs_up_button = st.button('Like👍')
-                    thumbs_down_button = st.button('Dislike👎')
+                    # Initialize feedback variable
+                    col1, col2,col3,col4 = st.columns([5.5,1,2,5])
+
+                     # Define Streamlit buttons in the columns
+                    
+                    with col1:
+                        pass
+
+                    thumbs_up_button = col2.button('Like👍', key="thumbs_up")
+                    thumbs_down_button = col3.button('Dislike👎', key="thumbs_down")
+                    with col4:
+                        pass
+
+        # Custom HTML and CSS to adjust button positioning
+                    st.markdown("""
+                    <style>
+                        .stButton>button {
+                            margin: 0 5px;  /* Adjust the margin to bring buttons closer together */
+                        }
+                    </style>
+                    """, unsafe_allow_html=True)
 
                     # Function to handle thumbs up button click
                     def on_thumbs_up_button_clicked():
@@ -137,8 +188,6 @@ with st.container():
 
                     if thumbs_down_button:
                         on_thumbs_down_button_clicked()
-
-                    print("HUMAN FEEDBACK:",human_feedback)
 
                     # Display serving size
                     st.write(f"Serving size: {recipe_data['serving size'][0]}")
@@ -162,13 +211,6 @@ with st.container():
                     with tru_app as recording:
                         nomnomapp.generate_recipe_data(image,serving_size)
                         records, feedback = tru.get_records_and_feedback(app_ids=["nomapp"])
-                        print("------")
-                        print(type(records))
-                        print("Records:",records)
-                        records.to_csv('records.csv')
-                        print("------")
-                        print(type(feedback))
-                        print("Feedback:",feedback)
                         record_id = records.record_id[-1:].values[0]
                     if human_feedback != None :
                         # add the human feedback to a particular app and record
@@ -180,4 +222,5 @@ with st.container():
                         )
                         tru.get_leaderboard(app_ids=[tru_app.app_id])
                         tru.run_dashboard()
+                        
 
